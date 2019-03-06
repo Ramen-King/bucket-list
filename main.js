@@ -2,6 +2,8 @@
 
 
 let isStack = true;
+const bucketList = [];
+
 
 // Set init to run when the window loads.
 window.onload = init;
@@ -30,36 +32,60 @@ function addNewItem(event) {
     resetInput();
 
     // Add the item to the <ul>.
-    displayItem(newItem);
+    
 
     // Now comes your part: add the item to the list.
+    
+
 
 
     // Display it in next-item if it's the first item:
-    if(false) { // definitely change that condition!
-        document.querySelector('#next-item').innerText = ''; // Replace that empty string with the actual item!
+   
+    if(newItem !== '') { 
+        bucketList.push(newItem);
+        displayItem(newItem);
+        console.log(bucketList);
+        // definitely change that condition!
     } 
+    document.querySelector('#next-item').innerText = 'Oldest ' + bucketList[0]; // Replace that empty string with the actual item!
+    
+    document.querySelector('#newest-item').innerText = 'Newest ' + newItem; // Replace that empty string with the actual item!
 
-    document.querySelector('#newest-item').innerText = '' // Replace that empty string with the actual item!
-
-    document.querySelector('#number-of-items').innerText = 0 // Replace that with the number of items!
+    document.querySelector('#number-of-items').innerText = 'Number of items ' + bucketList.length // Replace that with the number of items!
 }
 
 function removeItem(event) {
     // Prevent page reload.
-    event.preventDefault()
+    
+    event.preventDefault();
+    // document.querySelector('#newest-item').innerText = 'Newest ' + (newItem - 1);
+    // document.querySelector('#number-of-items').innerText = 'Number of items ' + (bucketList.length - 1);
 
+    
+
+    
     if(isStack) {
+        bucketList.pop();
+        newItem = bucketList[bucketList.length -1];
+        if (bucketList.length === 0) {
+            newItem = 'Live a Little';
+        }
+        
         removeLastFromPage();
+        
         // Your code to remove it from the array  goes here!
-
+        
 
     } else {
+        bucketList.shift(bucketList)
         removeFirstFromPage();
         // Your code to remove it from the array goes here!
 
 
     }
+    document.querySelector('#next-item').innerText = 'Oldest ' + bucketList[0];
+    document.querySelector('#number-of-items').innerText = 'Number of items ' + bucketList.length;
+    document.querySelector('#newest-item').innerText = 'Newest ' + newItem;
 }
 
 function toggleQueueAndStack(event) {
