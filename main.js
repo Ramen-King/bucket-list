@@ -3,11 +3,11 @@
 
 let isStack = true;
 const bucketList = [];
+const completedBucketList = [];
 
 
 // Set init to run when the window loads.
 window.onload = init;
-
 function init() {
 
     // Set event handlers.
@@ -58,40 +58,50 @@ function removeItem(event) {
     // Prevent page reload.
     
     event.preventDefault();
-    // document.querySelector('#newest-item').innerText = 'Newest ' + (newItem - 1);
-    // document.querySelector('#number-of-items').innerText = 'Number of items ' + (bucketList.length - 1);
+    let newItem = bucketList[bucketList.length -1];
 
     
 
     
     if(isStack) {
         bucketList.pop();
-        newItem = bucketList[bucketList.length -1];
+        console.log(bucketList)
+        console.log(newItem);
         if (bucketList.length === 0) {
-            newItem = 'Live a Little';
+            newItem = 'Live a Little';  
+            
         }
-        
         removeLastFromPage();
         
         // Your code to remove it from the array  goes here!
         
 
     } else {
-        bucketList.shift(bucketList)
         removeFirstFromPage();
+        completedBucketList = bucketList.shift()
+        console.log(completedBucketList);
+        //bucketList.shift(completedBucketList);
         // Your code to remove it from the array goes here!
+        
 
 
     }
     document.querySelector('#next-item').innerText = 'Oldest ' + bucketList[0];
     document.querySelector('#number-of-items').innerText = 'Number of items ' + bucketList.length;
     document.querySelector('#newest-item').innerText = 'Newest ' + newItem;
+    document.querySelector('#completed-item').innerText = 'Completed ' + newItem;   
 }
+
 
 function toggleQueueAndStack(event) {
     // Prevent page reload.
     event.preventDefault()
-
+    isStack = !isStack;
+    if (!isStack){
+        document.querySelector('#toggle').innerText = 'Toggle to Stack';
+    } else {
+        document.querySelector('#toggle').innerText = 'Toggle to Queue';
+    }
     // How can we toggle whether it's a stack or a queue?
     // Your code below!
 }
