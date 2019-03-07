@@ -18,7 +18,7 @@ function init() {
         .addEventListener('click', removeItem);
 
     document.querySelector('#toggle')
-            .addEventListener('click', toggleQueueAndStack);
+        .addEventListener('click', toggleQueueAndStack);
 }
 
 function addNewItem(event) {
@@ -58,11 +58,8 @@ function removeItem(event) {
     // Prevent page reload.
     
     event.preventDefault();
-    let newItem = bucketList[bucketList.length -1];
+    newItem = bucketList[bucketList.length -1];
 
-    
-
-    
     if(isStack) {
         bucketList.pop();
         console.log(bucketList)
@@ -77,9 +74,11 @@ function removeItem(event) {
         
 
     } else {
+        completedBucketList.push(bucketList.pop());
+        console.log(completedBucketList)
+
         removeFirstFromPage();
-        completedBucketList = bucketList.shift()
-        console.log(completedBucketList);
+
         //bucketList.shift(completedBucketList);
         // Your code to remove it from the array goes here!
         
