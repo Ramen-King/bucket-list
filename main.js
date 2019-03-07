@@ -42,7 +42,9 @@ function addNewItem(event) {
     // Display it in next-item if it's the first item:
    
     if(newItem !== '') { 
+        console.log("before " + bucketList)
         bucketList.push(newItem);
+    
         displayItem(newItem);
         console.log(bucketList);
         // definitely change that condition!
@@ -58,12 +60,14 @@ function removeItem(event) {
     // Prevent page reload.
     
     event.preventDefault();
-    newItem = bucketList[bucketList.length -1];
-
+    let newItem = bucketList[bucketList.length - 2];
+    console.log(newItem);
+    // document.querySelector('#newest-item').innerText = 'Newest ' + newItem;
     if(isStack) {
-        bucketList.pop();
-        console.log(bucketList)
-        console.log(newItem);
+        completedBucketList.push(bucketList.pop());
+        console.log(bucketList);
+        console.log(completedBucketList);
+        console.log(newItem)
         if (bucketList.length === 0) {
             newItem = 'Live a Little';  
             
@@ -74,7 +78,8 @@ function removeItem(event) {
         
 
     } else {
-        completedBucketList.push(bucketList.pop());
+        completedBucketList.push(bucketList.shift());
+        if (newItem === 0 && bucketList.length === 0)
         console.log(completedBucketList)
 
         removeFirstFromPage();
@@ -88,7 +93,7 @@ function removeItem(event) {
     document.querySelector('#next-item').innerText = 'Oldest ' + bucketList[0];
     document.querySelector('#number-of-items').innerText = 'Number of items ' + bucketList.length;
     document.querySelector('#newest-item').innerText = 'Newest ' + newItem;
-    document.querySelector('#completed-item').innerText = 'Completed ' + newItem;   
+    document.querySelector('#completed-item').innerText = 'Completed ' + completedBucketList;   
 }
 
 
