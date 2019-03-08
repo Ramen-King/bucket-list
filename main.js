@@ -48,7 +48,8 @@ function addNewItem(event) {
         displayItem(newItem);
         console.log(bucketList);
         // definitely change that condition!
-    } 
+        } 
+    
     document.querySelector('#next-item').innerText = 'Oldest ' + bucketList[0]; // Replace that empty string with the actual item!
     
     document.querySelector('#newest-item').innerText = 'Newest ' + newItem; // Replace that empty string with the actual item!
@@ -60,16 +61,19 @@ function removeItem(event) {
     // Prevent page reload.
     
     event.preventDefault();
+    
     let newItem = bucketList[bucketList.length - 2];
+    let firstItems = bucketList[0];
     console.log(newItem);
     // document.querySelector('#newest-item').innerText = 'Newest ' + newItem;
     if(isStack) {
         completedBucketList.push(bucketList.pop());
         console.log(bucketList);
         console.log(completedBucketList);
-        console.log(newItem)
+        console.log(newItem);
         if (bucketList.length === 0) {
-            newItem = 'Live a Little';  
+            newItem = 'Live a Little';
+            firstItems = 'Whatever';
             
         }
         removeLastFromPage();
@@ -79,7 +83,13 @@ function removeItem(event) {
 
     } else {
         completedBucketList.push(bucketList.shift());
-        if (newItem === 0 && bucketList.length === 0)
+        newItem = bucketList[bucketList.length - 2];
+        if (bucketList.length === 0) {
+            newItem = 'Find a New Goal';
+            firstItems = 'Whatever';
+            
+
+        }
         console.log(completedBucketList)
 
         removeFirstFromPage();
@@ -90,7 +100,7 @@ function removeItem(event) {
 
 
     }
-    document.querySelector('#next-item').innerText = 'Oldest ' + bucketList[0];
+    document.querySelector('#next-item').innerText = 'Oldest ' + firstItems;
     document.querySelector('#number-of-items').innerText = 'Number of items ' + bucketList.length;
     document.querySelector('#newest-item').innerText = 'Newest ' + newItem;
     document.querySelector('#completed-item').innerText = 'Completed ' + completedBucketList;   
